@@ -28,7 +28,7 @@ def cleanup_file(path: str):
 
 @app.get("/")
 async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html")
 
 @app.post("/api/info")
 async def info(url: str = Form(...)):
