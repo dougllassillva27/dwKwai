@@ -1,15 +1,35 @@
 import yt_dlp
 import logging
+import re
+import unicodedata
 
 # Config log
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def get_kwai_info(url: str):
+def extract_url(text: str) -> str:
+    """Extrai link do Kwai de um texto usando Regex."""
+    pattern = r'(https?://[^\s]+kwai\.com/[^\s]+)'
+    match = re.search(pattern, text)
+    return match.group(0) if match else text
+
+def sanitize_filename(filename: str) -> str:
+    """Limpa nome do arquivo: letras, números e espaços (Opção 1)."""
+    # Remove acentos
+    nksf = unicodedata.normalize('NFKD', filename)
+    filename = "".join([c for c in nksf if not unicodedata.combining(c)])
+    # Remove caracteres especiais, mantendo letras, números e espaços
+    filename = re.sub(r'[^a-zA-Z0-9\s]', '', filename)
+    # Remove espaços extras
+    filename = " ".join(filename.split())
+    return filename or "kwai_video"
+
+def get_kwai_info(url_input: str):
     """
     Extrai metadados do vídeo Kwai usando yt-dlp.
-    Retorna dit com title, thumbnail e download_url.
     """
+    url = extract_url(url_input)
+    
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
@@ -19,10 +39,12 @@ def get_kwai_info(url: str):
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            title = info.get('title', 'Kwai Video')
             
             return {
                 "success": True,
-                "title": info.get('title', 'Kwai Video'),
+                "title": title,
+                "clean_title": sanitize_filename(title),
                 "thumbnail": info.get('thumbnail'),
                 "video_url": info.get('url'),
                 "duration": info.get('duration'),
