@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dwKwai Downloader</title>
+    <style>
+        :root {
+            --primary: #ff5000;
+            --dark: #121212;
+            --light: #f4f4f4;
+            --card: #1e1e1e;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1 { color: var(--primary); margin-bottom: 20px; }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: #2a2a2a;
+            color: white;
+        }
+        button {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #preview {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .thumb {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .loading {
+            display: none;
+            margin: 15px 0;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>dwKwai</h1>
+    <p>Baixe vídeos e áudios do Kwai rapidamente.</p>
+    
+    <div class="input-group">
+        <input type="text" id="kwaiUrl" placeholder="Cole o link do Kwai aqui...">
+        <button id="btnFetch">Analisar</button>
+    </div>
+
+    <div id="loading" class="loading">Analisando vídeo... aguarde.</div>
+
+    <div id="preview">
+        <img id="videoThumb" src="" class="thumb">
+        <h3 id="videoTitle"></h3>
+        <div class="actions">
+            <button id="btnMp4">Download MP4</button>
+            <button id="btnMp3">Download MP3</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const btnFetch = document.getElementById('btnFetch');
+    const inputUrl = document.getElementById('kwaiUrl');
+    const preview = document.getElementById('preview');
+    const loading = document.getElementById('loading');
+    
+    let currentVideoUrl = "";
+
+    btnFetch.onclick = async () => {
+        const url = inputUrl.value.trim();
+        if(!url) return alert("Cole uma URL!");
+
+        loading.style.display = "block";
+        preview.style.display = "none";
+        btnFetch.disabled = true;
+
+        try {
+            const formData = new FormData();
+            formData.append('url', url);
+
+            const response = await fetch('/api/info', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if(data.success) {
+                document.getElementById('videoThumb').src = data.thumbnail;
+                document.getElementById('videoTitle').innerText = data.title;
+                currentVideoUrl = data.video_url;
+                preview.style.display = "block";
+            } else {
+                alert("Erro: " + data.error);
+            }
+        } catch (e) {
+            alert("Erro na conexão com o servidor.");
+        } finally {
+            loading.style.display = "none";
+            btnFetch.disabled = false;
+        }
+    };
+
+    document.getElementById('btnMp4').onclick = () => {
+        window.open(currentVideoUrl, '_blank');
+    };
+
+    document.getElementById('btnMp3').onclick = () => {
+        const url = encodeURIComponent(inputUrl.value.trim());
+        window.location.href = `/api/download/mp3?url=${url}`;
+    };
+</script>
+
+</body>
+</html>
