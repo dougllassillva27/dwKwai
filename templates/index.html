@@ -128,6 +128,41 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         #overlay p { font-size: 1.2rem; font-weight: bold; }
+
+        /* Modal de Sucesso */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+        }
+        .modal-content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            max-width: 300px;
+            width: 90%;
+            border: 1px solid var(--primary);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-icon {
+            font-size: 40px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        .modal-btn {
+            margin-top: 20px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -135,6 +170,15 @@
 <div id="overlay">
     <div class="spinner"></div>
     <p id="overlayText">Processando...</p>
+</div>
+
+<div id="modal">
+    <div class="modal-content">
+        <div class="modal-icon">✔</div>
+        <h2 style="margin:0">Sucesso!</h2>
+        <p>Seu download foi iniciado com sucesso.</p>
+        <button class="modal-btn" onclick="hideModal()">Fechar</button>
+    </div>
 </div>
 
 <div class="container">
@@ -165,6 +209,7 @@
     const loading = document.getElementById('loading');
     const overlay = document.getElementById('overlay');
     const overlayText = document.getElementById('overlayText');
+    const modal = document.getElementById('modal');
     const btnMp3 = document.getElementById('btnMp3');
     const btnMp4 = document.getElementById('btnMp4');
     
@@ -177,6 +222,14 @@
 
     function hideOverlay() {
         overlay.style.display = "none";
+    }
+
+    function showModal() {
+        modal.style.display = "flex";
+    }
+
+    function hideModal() {
+        modal.style.display = "none";
     }
 
     btnFetch.onclick = async () => {
@@ -240,7 +293,7 @@
             a.remove();
             window.URL.revokeObjectURL(downloadUrl);
             
-            alert("Download iniciado!");
+            showModal();
         } catch (e) {
             alert("Erro no download: " + e.message);
         } finally {
@@ -275,7 +328,7 @@
             a.remove();
             window.URL.revokeObjectURL(downloadUrl);
 
-            alert("Download iniciado!");
+            showModal();
         } catch (e) {
             alert("Erro ao converter MP3: " + e.message);
         } finally {

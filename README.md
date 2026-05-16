@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/img/Kwai Downloader Banner.webp" alt="Kwai Downloader Banner" />
+</div>
+
 # Kwai Downloader
 
 ![Status](https://img.shields.io/badge/status-active-success)
@@ -6,23 +10,33 @@
 
 **Downloader de Kwai inteligente, modular e com conversão nativa para MP3.**
 
-Solução robusta para extração de vídeos e áudios do Kwai com interface profissional e processamento em servidor.
+Solução robusta para extração de vídeos e áudios do Kwai com interface profissional, feedback em tempo real e processamento otimizado em servidor.
 
 ## 🔗 Demo
 
-> Deploy recomendado em Render.com para suporte nativo a FFmpeg.
+Acesse a aplicação em produção:
+
+👉 https://kwaidownloader.dougllassillva.com.br/
 
 ## 🌌 Preview
 
-*(Preview indisponível no momento)*
+<div align="center">
+  <img src="assets/img/Kwai-Downloader.webp" alt="Kwai Downloader Preview" />
+</div>
+
+## 📖 Visão Geral Técnica
+
+O **Kwai Downloader** é uma aplicação web Full Stack desenvolvida para simplificar a obtenção de mídias da plataforma Kwai. Utiliza uma arquitetura assíncrona baseada em FastAPI para garantir alta performance e escalabilidade.
+
+O sistema integra a poderosa biblioteca `yt-dlp` para extração de metadados e fluxos de mídia, combinada com o `FFmpeg` para conversão de áudio no lado do servidor. A interface é construída em Vanilla JS com um sistema de feedback visual dinâmico (overlays e modais), proporcionando uma experiência de usuário fluida e profissional.
 
 ## ⚙️ Highlights técnicos
 
-- Extração direta via Scraping (yt-dlp)
-- Processamento de áudio via FFmpeg no servidor
-- Interface moderna com visualização de miniatura (Preview UX)
-- Sistema de Auto-Cleanup para economia de storage
-- Backend assíncrono com FastAPI
+- **Extração Inteligente:** Detecta URLs do Kwai mesmo em meio a blocos de texto usando Regex.
+- **Processamento Otimizado:** Download de MP3 baixa apenas o fluxo de áudio, economizando até 80% de banda.
+- **Feedback em Tempo Real:** Overlay de loading e modais de sucesso para uma UX sem interrupções.
+- **Auto-Cleanup:** Gerenciamento automático de arquivos temporários para manter a saúde do storage.
+- **Proxy de Download:** Downloads servidos diretamente pelo backend com nomes de arquivos sanitizados.
 
 ## 🏗️ Arquitetura
 
@@ -32,66 +46,94 @@ Navegador (Frontend Vanilla JS/CSS)
    ▼
 FastAPI (Python Backend)
    │
-   ├── Scraper (yt-dlp) ───► Kwai CDN
-   ├── Mídia (FFmpeg)   ───► MP3 Engine
-   └── Auto-Cleanup     ───► Temp Files
+   ├── Scraper (yt-dlp) ───► Kwai CDN (Extração de metadados)
+   ├── Mídia (yt-dlp Post-Processors) ───► Conversão MP3 nativa
+   └── Auto-Cleanup (Background Tasks) ───► Remoção de arquivos temp
 ```
 
 ## 📂 Estrutura do projeto
 
 ```txt
 KwaiDownloader/
-├── templates/          # Interface HTML/JS
-├── temp/               # Arquivos temporários (auto-deleted)
-├── docs/               # Documentação técnica
-├── Dockerfile          # Configuração de container (FFmpeg)
-├── main.py             # Servidor FastAPI
-├── scraper.py          # Lógica de extração
-└── requirements.txt    # Dependências Python
+├── assets/             # Recursos estáticos (Imagens, Ícones)
+├── templates/          # Interface HTML e lógica JS
+├── temp/               # Diretório para processamento temporário
+├── docs/               # Documentação técnica e design
+├── Dockerfile          # Definição do ambiente (Python + FFmpeg)
+├── main.py             # Entrypoint da API FastAPI
+├── scraper.py          # Módulo de scraping e sanitização
+└── requirements.txt    # Gerenciamento de dependências
 ```
+
+## 📂 Responsabilidades
+
+### `main.py`
+Entrypoint principal. Gerencia rotas da API, serve arquivos estáticos, orquestra o streaming de vídeo (MP4) e a conversão de áudio (MP3), além de gerenciar tarefas de limpeza em background.
+
+### `scraper.py`
+Responsável pela lógica de negócio de extração. Implementa Regex para limpeza de URL, integração com `yt-dlp` para metadados e sanitização de nomes de arquivos para compatibilidade universal.
+
+### `templates/index.html`
+Single Page Interface. Contém toda a estrutura visual, estilização Dark Theme e lógica de interação com a API, incluindo gerenciamento de estado da UI (Loading/Modal).
+
+## 🔄 Fluxo principal da aplicação
+
+1. O usuário cola um link (ou texto contendo um link) do Kwai.
+2. O sistema limpa a URL e extrai metadados (Título, Thumbnail, Duração).
+3. A interface exibe um preview rico do vídeo.
+4. O usuário seleciona o formato desejado (MP4 ou MP3).
+5. O sistema processa a mídia em tempo real com feedback visual (Spinner).
+6. O download é disparado e um modal de sucesso é exibido.
+7. Arquivos temporários são deletados automaticamente após o envio.
+
+## 🔒 Segurança e privacidade
+
+- **Sanitização de Entrada:** URLs são filtradas rigorosamente via Regex.
+- **Nomes de Arquivos Seguros:** Títulos de vídeos são normalizados (remoção de caracteres especiais/acentos).
+- **Isolamento Temporário:** Arquivos processados são identificados por UUIDs únicos para evitar colisões.
+- **Auto-Destruição:** Arquivos temporários são deletados por Background Tasks do FastAPI imediatamente após o uso.
+
+## 🚀 Como rodar localmente
+
+1. **Pré-requisitos:** Python 3.11+ e FFmpeg instalado no sistema.
+2. **Instalação:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Execução:**
+   ```bash
+   python main.py
+   ```
+4. **Acesso:** Abra `http://localhost:8000` no seu navegador.
+
+## 📦 Build e Deploy
+
+- **Build:** O projeto utiliza Docker para garantir que o FFmpeg e as dependências Python estejam presentes.
+- **Deploy:** Configurado para Render.com, detectando automaticamente o `Dockerfile`.
 
 ## 🛠️ Tecnologias
 
 | Tecnologia | Responsabilidade |
 | --- | --- |
-| Python 3.11 | Linguagem base |
-| FastAPI | Framework Web/API |
-| yt-dlp | Scraping e Extração |
-| FFmpeg | Conversão MP4 -> MP3 |
-| Docker | Padronização de Ambiente |
+| Python 3.11 | Núcleo do Backend |
+| FastAPI | Framework de API de alta performance |
+| yt-dlp | Motor de extração e scraping |
+| FFmpeg | Processamento e conversão de mídia |
+| Vanilla JS/CSS | Interface leve e responsiva |
+| Docker | Padronização de ambiente |
 
-## 🔄 Fluxo principal da aplicação
+## ✅ Testes
 
-1. Usuário insere link do Kwai.
-2. Backend extrai metadados (Título e Thumbnail).
-3. Frontend exibe o Preview para confirmação.
-4. Usuário escolhe MP4 (link direto) ou MP3 (processamento).
-5. No MP3, o servidor baixa, converte e entrega o arquivo.
-6. O sistema deleta os arquivos temporários imediatamente.
-
-## 🚀 Como rodar localmente
-
-1. Certifique-se de ter o Python 3.11 e FFmpeg instalados.
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Execute o servidor:
-   ```bash
-   python main.py
-   ```
-4. Acesse `http://localhost:8000`.
-
-## 📦 Deploy (Render.com)
-
-1. Conecte o repositório ao Render.
-2. Escolha **Web Service**.
-3. O Render detectará o `Dockerfile` automaticamente.
-4. O FFmpeg será instalado durante o build do container.
+Validações manuais críticas:
+- [x] Extração de URL a partir de texto compartilhado do app Kwai.
+- [x] Download de MP4 via streaming proxy.
+- [x] Conversão de MP3 baixando apenas o fluxo de áudio (Post-processing).
+- [x] Exibição e fechamento do modal de sucesso.
+- [x] Verificação de deleção de arquivos na pasta `temp/`.
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT.
 
 ---
-Desenvolvido por Douglas Silva.
+Desenvolvido por **Douglas Silva**.
