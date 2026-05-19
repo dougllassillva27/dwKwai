@@ -193,8 +193,11 @@
     <div id="loading" class="loading">Analisando vídeo... aguarde.</div>
 
     <div id="preview">
-        <img id="videoThumb" src="" class="thumb">
-        <h3 id="videoTitle"></h3>
+        <img id="videoThumb" src="" class="thumb" alt="Thumbnail do vídeo">
+        <h3 id="videoTitle" style="display:none;"></h3>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <input type="text" id="customFilename" placeholder="Nome do arquivo...">
+        </div>
         <div class="actions">
             <button id="btnMp4">Download MP4</button>
             <button id="btnMp3">Download MP3</button>
@@ -205,6 +208,7 @@
 <script>
     const btnFetch = document.getElementById('btnFetch');
     const inputUrl = document.getElementById('kwaiUrl');
+    const customFilename = document.getElementById('customFilename');
     const preview = document.getElementById('preview');
     const loading = document.getElementById('loading');
     const overlay = document.getElementById('overlay');
@@ -233,6 +237,34 @@
         modal.style.display = "none";
     }
 
+    async function downloadBlob(endpoint, url, filename, extension, overlayMsg) {
+        showOverlay(overlayMsg);
+        try {
+            const encodedUrl = encodeURIComponent(url);
+            const encodedFilename = encodeURIComponent(filename);
+            const response = await fetch(`${endpoint}?url=${encodedUrl}&filename=${encodedFilename}`);
+            
+            if (!response.ok) throw new Error(`Erro ao baixar ${extension.toUpperCase()}.`);
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            a.href = downloadUrl;
+            a.download = `${filename}.${extension}`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+            
+            showModal();
+        } catch (e) {
+            alert(`Erro no download: ${e.message}`);
+        } finally {
+            hideOverlay();
+        }
+    }
+
     btnFetch.onclick = async () => {
         const rawText = inputUrl.value.trim();
         if(!rawText) return alert("Cole uma URL ou texto com link!");
@@ -254,8 +286,9 @@
             if(data.success) {
                 document.getElementById('videoThumb').src = data.thumbnail;
                 document.getElementById('videoTitle').innerText = data.title;
-                lastProcessedUrl = data.source; // URL limpa vinda do backend
-                lastProcessedTitle = data.clean_title; // Nome sanitizado para download
+                customFilename.value = data.title;
+                lastProcessedUrl = data.source;
+                lastProcessedTitle = data.clean_title;
                 preview.style.display = "block";
             } else {
                 alert("Erro: " + data.error);
@@ -268,59 +301,14 @@
         }
     };
 
-    btnMp4.onclick = async () => {
-        showOverlay("Preparando vídeo...");
-        const url = encodeURIComponent(lastProcessedUrl);
-        
-        try {
-            const response = await fetch(`/api/download/mp4?url=${url}`);
-            if (!response.ok) throw new Error("Erro ao baixar MP4.");
-
-            const blob = await response.blob();
-            const downloadUrl = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            
-            a.href = downloadUrl;
-            a.download = `${lastProcessedTitle}.mp4`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(downloadUrl);
-            
-            showModal();
-        } catch (e) {
-            alert("Erro no download: " + e.message);
-        } finally {
-            hideOverlay();
-        }
+    btnMp4.onclick = () => {
+        const filename = customFilename.value.trim() || lastProcessedTitle;
+        downloadBlob('/api/download/mp4', lastProcessedUrl, filename, 'mp4', "Preparando vídeo...");
     };
 
-    btnMp3.onclick = async () => {
-        showOverlay("Convertendo áudio... aguarde.");
-        
-        const url = encodeURIComponent(lastProcessedUrl);
-        
-        try {
-            const response = await fetch(`/api/download/mp3?url=${url}`);
-            if (!response.ok) throw new Error("Erro no processamento do MP3.");
-
-            const blob = await response.blob();
-            const downloadUrl = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            
-            a.href = downloadUrl;
-            a.download = `${lastProcessedTitle}.mp3`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(downloadUrl);
-
-            showModal();
-        } catch (e) {
-            alert("Erro ao converter MP3: " + e.message);
-        } finally {
-            hideOverlay();
-        }
+    btnMp3.onclick = () => {
+        const filename = customFilename.value.trim() || lastProcessedTitle;
+        downloadBlob('/api/download/mp3', lastProcessedUrl, filename, 'mp3', "Convertendo áudio... aguarde.");
     };
 </script>
 

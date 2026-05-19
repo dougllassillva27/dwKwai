@@ -9,80 +9,98 @@
       "source_file": "main.py",
       "source_location": "L1",
       "id": "main_py",
-      "community": 0,
+      "community": 3,
       "norm_label": "main.py"
+    },
+    {
+      "label": "AppState",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L13",
+      "id": "kwaidownloader_main_appstate",
+      "community": 3,
+      "norm_label": "appstate"
+    },
+    {
+      "label": "lifespan()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L19",
+      "id": "kwaidownloader_main_lifespan",
+      "community": 3,
+      "norm_label": "lifespan()"
     },
     {
       "label": "cleanup_file()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L20",
+      "source_location": "L39",
       "id": "kwaidownloader_main_cleanup_file",
-      "community": 0,
+      "community": 1,
       "norm_label": "cleanup_file()"
     },
     {
       "label": "home()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L29",
+      "source_location": "L48",
       "id": "kwaidownloader_main_home",
-      "community": 0,
+      "community": 3,
       "norm_label": "home()"
     },
     {
       "label": "info()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L33",
+      "source_location": "L52",
       "id": "kwaidownloader_main_info",
-      "community": 0,
+      "community": 3,
       "norm_label": "info()"
     },
     {
       "label": "download_mp4()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L41",
+      "source_location": "L60",
       "id": "kwaidownloader_main_download_mp4",
-      "community": 3,
+      "community": 2,
       "norm_label": "download_mp4()"
     },
     {
       "label": "download_mp3()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L68",
+      "source_location": "L84",
       "id": "kwaidownloader_main_download_mp3",
-      "community": 0,
+      "community": 1,
       "norm_label": "download_mp3()"
     },
     {
       "label": "Remove arquivo tempor\u00e1rio.",
       "file_type": "rationale",
       "source_file": "main.py",
-      "source_location": "L21",
-      "id": "kwaidownloader_main_rationale_21",
-      "community": 0,
+      "source_location": "L40",
+      "id": "kwaidownloader_main_rationale_40",
+      "community": 1,
       "norm_label": "remove arquivo temporario."
     },
     {
       "label": "Proxy para download do MP4 com nome personalizado.",
       "file_type": "rationale",
       "source_file": "main.py",
-      "source_location": "L42",
-      "id": "kwaidownloader_main_rationale_42",
-      "community": 3,
+      "source_location": "L61",
+      "id": "kwaidownloader_main_rationale_61",
+      "community": 2,
       "norm_label": "proxy para download do mp4 com nome personalizado."
     },
     {
-      "label": "Gera MP3 via FFmpeg e envia.",
+      "label": "Gera MP3 via yt-dlp post-processors e envia.",
       "file_type": "rationale",
       "source_file": "main.py",
-      "source_location": "L69",
-      "id": "kwaidownloader_main_rationale_69",
-      "community": 0,
-      "norm_label": "gera mp3 via ffmpeg e envia."
+      "source_location": "L85",
+      "id": "kwaidownloader_main_rationale_85",
+      "community": 1,
+      "norm_label": "gera mp3 via yt-dlp post-processors e envia."
     },
     {
       "label": "scraper.py",
@@ -90,61 +108,61 @@
       "source_file": "scraper.py",
       "source_location": "L1",
       "id": "scraper_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "scraper.py"
     },
     {
       "label": "extract_url()",
       "file_type": "code",
       "source_file": "scraper.py",
-      "source_location": "L10",
+      "source_location": "L11",
       "id": "kwaidownloader_scraper_extract_url",
-      "community": 3,
+      "community": 2,
       "norm_label": "extract_url()"
     },
     {
       "label": "sanitize_filename()",
       "file_type": "code",
       "source_file": "scraper.py",
-      "source_location": "L16",
+      "source_location": "L17",
       "id": "kwaidownloader_scraper_sanitize_filename",
-      "community": 1,
+      "community": 0,
       "norm_label": "sanitize_filename()"
     },
     {
       "label": "get_kwai_info()",
       "file_type": "code",
       "source_file": "scraper.py",
-      "source_location": "L27",
+      "source_location": "L29",
       "id": "kwaidownloader_scraper_get_kwai_info",
-      "community": 1,
+      "community": 0,
       "norm_label": "get_kwai_info()"
     },
     {
       "label": "Extrai link do Kwai de um texto usando Regex.",
       "file_type": "rationale",
       "source_file": "scraper.py",
-      "source_location": "L11",
-      "id": "kwaidownloader_scraper_rationale_11",
-      "community": 3,
+      "source_location": "L12",
+      "id": "kwaidownloader_scraper_rationale_12",
+      "community": 2,
       "norm_label": "extrai link do kwai de um texto usando regex."
     },
     {
       "label": "Limpa nome do arquivo: letras, n\u00fameros e espa\u00e7os (Op\u00e7\u00e3o 1).",
       "file_type": "rationale",
       "source_file": "scraper.py",
-      "source_location": "L17",
-      "id": "kwaidownloader_scraper_rationale_17",
-      "community": 1,
+      "source_location": "L18",
+      "id": "kwaidownloader_scraper_rationale_18",
+      "community": 0,
       "norm_label": "limpa nome do arquivo: letras, numeros e espacos (opcao 1)."
     },
     {
       "label": "Extrai metadados do v\u00eddeo Kwai usando yt-dlp.",
       "file_type": "rationale",
       "source_file": "scraper.py",
-      "source_location": "L28",
-      "id": "kwaidownloader_scraper_rationale_28",
-      "community": 1,
+      "source_location": "L30",
+      "id": "kwaidownloader_scraper_rationale_30",
+      "community": 0,
       "norm_label": "extrai metadados do video kwai usando yt-dlp."
     },
     {
@@ -153,7 +171,7 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L1",
       "id": "versionamento_versionador_js",
-      "community": 2,
+      "community": 4,
       "norm_label": "versionador.js"
     },
     {
@@ -162,7 +180,7 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L30",
       "id": "versionamento_versionador_gerarhash",
-      "community": 2,
+      "community": 4,
       "norm_label": "gerarhash()"
     },
     {
@@ -171,7 +189,7 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L38",
       "id": "versionamento_versionador_processarurl",
-      "community": 2,
+      "community": 4,
       "norm_label": "processarurl()"
     },
     {
@@ -180,7 +198,7 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L73",
       "id": "versionamento_versionador_processarconteudo",
-      "community": 2,
+      "community": 4,
       "norm_label": "processarconteudo()"
     },
     {
@@ -189,8 +207,62 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L105",
       "id": "versionamento_versionador_varrerdiretorio",
-      "community": 2,
+      "community": 4,
       "norm_label": "varrerdiretorio()"
+    },
+    {
+      "label": "Remove arquivo tempor\u00e1rio.",
+      "file_type": "rationale",
+      "source_file": "main.py",
+      "source_location": "L21",
+      "community": 1,
+      "norm_label": "remove arquivo temporario.",
+      "id": "kwaidownloader_main_rationale_21"
+    },
+    {
+      "label": "Proxy para download do MP4 com nome personalizado.",
+      "file_type": "rationale",
+      "source_file": "main.py",
+      "source_location": "L42",
+      "community": 2,
+      "norm_label": "proxy para download do mp4 com nome personalizado.",
+      "id": "kwaidownloader_main_rationale_42"
+    },
+    {
+      "label": "Gera MP3 via FFmpeg e envia.",
+      "file_type": "rationale",
+      "source_file": "main.py",
+      "source_location": "L69",
+      "community": 1,
+      "norm_label": "gera mp3 via ffmpeg e envia.",
+      "id": "kwaidownloader_main_rationale_69"
+    },
+    {
+      "label": "Extrai link do Kwai de um texto usando Regex.",
+      "file_type": "rationale",
+      "source_file": "scraper.py",
+      "source_location": "L11",
+      "community": 2,
+      "norm_label": "extrai link do kwai de um texto usando regex.",
+      "id": "kwaidownloader_scraper_rationale_11"
+    },
+    {
+      "label": "Limpa nome do arquivo: letras, n\u00fameros e espa\u00e7os (Op\u00e7\u00e3o 1).",
+      "file_type": "rationale",
+      "source_file": "scraper.py",
+      "source_location": "L17",
+      "community": 0,
+      "norm_label": "limpa nome do arquivo: letras, numeros e espacos (opcao 1).",
+      "id": "kwaidownloader_scraper_rationale_17"
+    },
+    {
+      "label": "Extrai metadados do v\u00eddeo Kwai usando yt-dlp.",
+      "file_type": "rationale",
+      "source_file": "scraper.py",
+      "source_location": "L28",
+      "community": 0,
+      "norm_label": "extrai metadados do video kwai usando yt-dlp.",
+      "id": "kwaidownloader_scraper_rationale_28"
     }
   ],
   "links": [
@@ -198,11 +270,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L20",
+      "source_location": "L13",
       "weight": 1.0,
       "source": "main_py",
-      "target": "kwaidownloader_main_cleanup_file",
+      "target": "kwaidownloader_main_appstate",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "main_py",
+      "target": "kwaidownloader_main_lifespan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_py",
+      "target": "kwaidownloader_main_cleanup_file"
     },
     {
       "relation": "contains",
@@ -210,9 +302,9 @@
       "source_file": "main.py",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "main_py",
-      "target": "kwaidownloader_main_home",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_main_home"
     },
     {
       "relation": "contains",
@@ -220,9 +312,9 @@
       "source_file": "main.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "main_py",
-      "target": "kwaidownloader_main_info",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_main_info"
     },
     {
       "relation": "contains",
@@ -230,9 +322,9 @@
       "source_file": "main.py",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "main_py",
-      "target": "kwaidownloader_main_download_mp4",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_main_download_mp4"
     },
     {
       "relation": "contains",
@@ -240,9 +332,9 @@
       "source_file": "main.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "main_py",
-      "target": "kwaidownloader_main_download_mp3",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_main_download_mp3"
     },
     {
       "relation": "calls",
@@ -251,7 +343,17 @@
       "source_file": "main.py",
       "source_location": "L118",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_main_download_mp3",
+      "target": "kwaidownloader_main_cleanup_file"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "kwaidownloader_main_rationale_40",
       "target": "kwaidownloader_main_cleanup_file",
       "confidence_score": 1.0
     },
@@ -261,9 +363,9 @@
       "source_file": "main.py",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_main_rationale_21",
-      "target": "kwaidownloader_main_cleanup_file",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_main_cleanup_file"
     },
     {
       "relation": "calls",
@@ -280,11 +382,21 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L42",
+      "source_location": "L61",
       "weight": 1.0,
-      "source": "kwaidownloader_main_rationale_42",
+      "source": "kwaidownloader_main_rationale_61",
       "target": "kwaidownloader_main_download_mp4",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kwaidownloader_main_rationale_42",
+      "target": "kwaidownloader_main_download_mp4"
     },
     {
       "relation": "calls",
@@ -312,11 +424,21 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L69",
+      "source_location": "L85",
       "weight": 1.0,
-      "source": "kwaidownloader_main_rationale_69",
+      "source": "kwaidownloader_main_rationale_85",
       "target": "kwaidownloader_main_download_mp3",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kwaidownloader_main_rationale_69",
+      "target": "kwaidownloader_main_download_mp3"
     },
     {
       "relation": "calls",
@@ -346,9 +468,9 @@
       "source_file": "scraper.py",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scraper_py",
-      "target": "kwaidownloader_scraper_extract_url",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_scraper_extract_url"
     },
     {
       "relation": "contains",
@@ -356,9 +478,9 @@
       "source_file": "scraper.py",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scraper_py",
-      "target": "kwaidownloader_scraper_sanitize_filename",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_scraper_sanitize_filename"
     },
     {
       "relation": "contains",
@@ -366,9 +488,9 @@
       "source_file": "scraper.py",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scraper_py",
-      "target": "kwaidownloader_scraper_get_kwai_info",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_scraper_get_kwai_info"
     },
     {
       "relation": "calls",
@@ -377,7 +499,17 @@
       "source_file": "scraper.py",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_scraper_get_kwai_info",
+      "target": "kwaidownloader_scraper_extract_url"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scraper.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "kwaidownloader_scraper_rationale_12",
       "target": "kwaidownloader_scraper_extract_url",
       "confidence_score": 1.0
     },
@@ -387,9 +519,9 @@
       "source_file": "scraper.py",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_scraper_rationale_11",
-      "target": "kwaidownloader_scraper_extract_url",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_scraper_extract_url"
     },
     {
       "relation": "calls",
@@ -398,7 +530,17 @@
       "source_file": "scraper.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_scraper_get_kwai_info",
+      "target": "kwaidownloader_scraper_sanitize_filename"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scraper.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "kwaidownloader_scraper_rationale_18",
       "target": "kwaidownloader_scraper_sanitize_filename",
       "confidence_score": 1.0
     },
@@ -408,8 +550,18 @@
       "source_file": "scraper.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_scraper_rationale_17",
-      "target": "kwaidownloader_scraper_sanitize_filename",
+      "target": "kwaidownloader_scraper_sanitize_filename"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scraper.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "kwaidownloader_scraper_rationale_30",
+      "target": "kwaidownloader_scraper_get_kwai_info",
       "confidence_score": 1.0
     },
     {
@@ -418,9 +570,9 @@
       "source_file": "scraper.py",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "kwaidownloader_scraper_rationale_28",
-      "target": "kwaidownloader_scraper_get_kwai_info",
-      "confidence_score": 1.0
+      "target": "kwaidownloader_scraper_get_kwai_info"
     },
     {
       "relation": "contains",
@@ -428,9 +580,9 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "versionamento_versionador_js",
-      "target": "versionamento_versionador_gerarhash",
-      "confidence_score": 1.0
+      "target": "versionamento_versionador_gerarhash"
     },
     {
       "relation": "contains",
@@ -438,9 +590,9 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "versionamento_versionador_js",
-      "target": "versionamento_versionador_processarurl",
-      "confidence_score": 1.0
+      "target": "versionamento_versionador_processarurl"
     },
     {
       "relation": "contains",
@@ -448,9 +600,9 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "versionamento_versionador_js",
-      "target": "versionamento_versionador_processarconteudo",
-      "confidence_score": 1.0
+      "target": "versionamento_versionador_processarconteudo"
     },
     {
       "relation": "contains",
@@ -458,9 +610,9 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "versionamento_versionador_js",
-      "target": "versionamento_versionador_varrerdiretorio",
-      "confidence_score": 1.0
+      "target": "versionamento_versionador_varrerdiretorio"
     },
     {
       "relation": "calls",
@@ -469,11 +621,11 @@
       "source_file": "versionamento/versionador.js",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "versionamento_versionador_processarurl",
-      "target": "versionamento_versionador_gerarhash",
-      "confidence_score": 1.0
+      "target": "versionamento_versionador_gerarhash"
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "7b9949302565140f07f780cb3085a8a63640a465"
+  "built_at_commit": "d89e8c3e11308335888305087917f8cc2248e0af"
 }

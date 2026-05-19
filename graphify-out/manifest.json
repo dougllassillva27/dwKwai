@@ -1,11 +1,11 @@
 {
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\main.py": {
-    "mtime": 1778957081.3356526,
-    "hash": "0dc4dcbb35866599b6b43be855d4df90"
+    "mtime": 1778963463.3092554,
+    "hash": "204a65cb7b61d19729d6bd543f08acce"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\scraper.py": {
-    "mtime": 1778957055.7754507,
-    "hash": "566ac5c7aafc1440428c0df7ce63a18c"
+    "mtime": 1778963451.0624106,
+    "hash": "0475757fa92c64fc8adc51d2abb3af98"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\versionamento\\versionador.js": {
     "mtime": 1777062823.2931838,
@@ -15,21 +15,17 @@
     "mtime": 1778945512.4666638,
     "hash": "728507eb060a95d5ae6beda50fdc2768"
   },
-  "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\Geral.txt": {
-    "mtime": 1778956980.6700523,
-    "hash": "63a16ac24487edbe6e5f7b3de6766afd"
-  },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\README.md": {
-    "mtime": 1778951092.0921676,
-    "hash": "44b995362252c827d4496d1ba811dbf7"
+    "mtime": 1778960752.1887865,
+    "hash": "64a6a27d586755f12870f5597174fb05"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\requirements.txt": {
     "mtime": 1778950672.2336354,
     "hash": "c5a51506fef33738516a85775214bfb0"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\resumo-de-trabalho.md": {
-    "mtime": 1778957171.2942219,
-    "hash": "c64be3c4e931a81a5a3982250290bf0e"
+    "mtime": 1778964092.2862625,
+    "hash": "ff6ed7e830353429e338e42bf58855ee"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\docs\\DESIGN.md": {
     "mtime": 1778950035.2152736,
@@ -40,7 +36,19 @@
     "hash": "93c2fac96535ad240bd21bb95c89ad51"
   },
   "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\templates\\index.html": {
-    "mtime": 1778957095.2632706,
-    "hash": "755ee03a6a9813c76e616a329d7c6f6d"
+    "mtime": 1778961094.1341507,
+    "hash": "6aae82bc904a8e35c5d81ee60bf41614"
+  },
+  "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\_contexto-ia\\Geral.md": {
+    "mtime": 1778540830.9629078,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\assets\\img\\Kwai Downloader Banner.webp": {
+    "mtime": 1778960612.8790991,
+    "hash": "0545139a56ae74bc78c69312e6594141"
+  },
+  "D:\\Onedrive - Douglas\\OneDrive\\Pessoal\\Dodo\\Programacao\\Git\\kwaiDownloader\\assets\\img\\Kwai-Downloader.webp": {
+    "mtime": 1778958843.190106,
+    "hash": "b15b62308ecda062159edb938c14827d"
   }
 }

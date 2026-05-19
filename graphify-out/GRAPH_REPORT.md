@@ -1,16 +1,16 @@
-# Graph Report - kwaiDownloader  (2026-05-16)
+# Graph Report - kwaiDownloader  (2026-05-19)
 
 ## Corpus Check
-- 3 files · ~3,713 words
+- 3 files · ~5,196 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 21 nodes · 27 edges · 4 communities (3 shown, 1 thin omitted)
-- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.8)
+- 29 nodes · 35 edges · 5 communities (3 shown, 2 thin omitted)
+- Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7b994930`
+- Built from commit: `d89e8c3e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,18 +19,19 @@
 - [[_COMMUNITY_Community 1|Community 1]]
 - [[_COMMUNITY_Community 2|Community 2]]
 - [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `get_kwai_info()` - 7 edges
-2. `download_mp3()` - 5 edges
-3. `extract_url()` - 5 edges
-4. `download_mp4()` - 4 edges
-5. `cleanup_file()` - 3 edges
-6. `sanitize_filename()` - 3 edges
+1. `get_kwai_info()` - 8 edges
+2. `download_mp3()` - 6 edges
+3. `extract_url()` - 6 edges
+4. `download_mp4()` - 5 edges
+5. `cleanup_file()` - 4 edges
+6. `sanitize_filename()` - 4 edges
 7. `info()` - 2 edges
 8. `gerarHash()` - 2 edges
 9. `processarUrl()` - 2 edges
-10. `Remove arquivo temporário.` - 1 edges
+10. `AppState` - 1 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `info()` --calls--> `get_kwai_info()`  [INFERRED]
@@ -44,34 +45,34 @@
 - `download_mp4()` --calls--> `extract_url()`  [INFERRED]
   main.py → scraper.py
 
-## Communities (4 total, 1 thin omitted)
+## Communities (5 total, 2 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.33
-Nodes (5): cleanup_file(), download_mp3(), info(), Remove arquivo temporário., Gera MP3 via FFmpeg e envia.
+Nodes (6): get_kwai_info(), Limpa nome do arquivo: letras, números e espaços (Opção 1)., Limpa nome do arquivo: letras, números e espaços (Opção 1)., Extrai metadados do vídeo Kwai usando yt-dlp., Extrai metadados do vídeo Kwai usando yt-dlp., sanitize_filename()
 
 ### Community 1 - "Community 1"
-Cohesion: 0.5
-Nodes (4): get_kwai_info(), Limpa nome do arquivo: letras, números e espaços (Opção 1)., Extrai metadados do vídeo Kwai usando yt-dlp., sanitize_filename()
+Cohesion: 0.33
+Nodes (6): cleanup_file(), download_mp3(), Remove arquivo temporário., Remove arquivo temporário., Gera MP3 via FFmpeg e envia., Gera MP3 via yt-dlp post-processors e envia.
 
-### Community 3 - "Community 3"
-Cohesion: 0.5
-Nodes (4): download_mp4(), Proxy para download do MP4 com nome personalizado., extract_url(), Extrai link do Kwai de um texto usando Regex.
+### Community 2 - "Community 2"
+Cohesion: 0.33
+Nodes (6): download_mp4(), Proxy para download do MP4 com nome personalizado., Proxy para download do MP4 com nome personalizado., extract_url(), Extrai link do Kwai de um texto usando Regex., Extrai link do Kwai de um texto usando Regex.
 
 ## Knowledge Gaps
-- **6 isolated node(s):** `Remove arquivo temporário.`, `Proxy para download do MP4 com nome personalizado.`, `Gera MP3 via FFmpeg e envia.`, `Extrai link do Kwai de um texto usando Regex.`, `Limpa nome do arquivo: letras, números e espaços (Opção 1).` (+1 more)
+- **13 isolated node(s):** `AppState`, `Remove arquivo temporário.`, `Proxy para download do MP4 com nome personalizado.`, `Gera MP3 via yt-dlp post-processors e envia.`, `Extrai link do Kwai de um texto usando Regex.` (+8 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **1 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `get_kwai_info()` connect `Community 1` to `Community 0`, `Community 3`?**
+- **Why does `get_kwai_info()` connect `Community 0` to `Community 1`, `Community 2`, `Community 3`?**
+  _High betweenness centrality (0.281) - this node is a cross-community bridge._
+- **Why does `download_mp3()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`?**
   _High betweenness centrality (0.234) - this node is a cross-community bridge._
-- **Why does `download_mp3()` connect `Community 0` to `Community 1`, `Community 3`?**
-  _High betweenness centrality (0.176) - this node is a cross-community bridge._
-- **Why does `download_mp4()` connect `Community 3` to `Community 0`, `Community 1`?**
-  _High betweenness centrality (0.102) - this node is a cross-community bridge._
+- **Why does `download_mp4()` connect `Community 2` to `Community 0`, `Community 3`?**
+  _High betweenness centrality (0.155) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `get_kwai_info()` (e.g. with `info()` and `download_mp4()`) actually correct?**
   _`get_kwai_info()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `download_mp3()` (e.g. with `extract_url()` and `get_kwai_info()`) actually correct?**

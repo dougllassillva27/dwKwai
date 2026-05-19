@@ -14,18 +14,33 @@ def extract_url(text: str) -> str:
     match = re.search(pattern, text)
     return match.group(0) if match else text
 
-def sanitize_filename(filename: str) -> str:
-    """Limpa nome do arquivo: letras, números e espaços (Opção 1)."""
-    # Remove acentos
-    nksf = unicodedata.normalize('NFKD', filename)
-    filename = "".join([c for c in nksf if not unicodedata.combining(c)])
-    # Remove caracteres especiais, mantendo letras, números e espaços
-    filename = re.sub(r'[^a-zA-Z0-9\s]', '', filename)
-    # Remove espaços extras
-    filename = " ".join(filename.split())
-    return filename or "kwai_video"
+MAX_FILENAME_LENGTH = 200
+CACHE_SIZE = 128
 
-@lru_cache(maxsize=128)
+def sanitize_filename(filename: str) -> str:
+    """
+    Limpa nome do arquivo para garantir compatibilidade com SOs.
+    Decompõe acentos, remove caracteres especiais e limita o tamanho.
+    """
+    if not filename:
+        return "kwai_video"
+        
+    # Normaliza texto (NFKD decompõe caracteres como 'á' em 'a' + '´')
+    normalized_text = unicodedata.normalize('NFKD', filename)
+    filename = "".join([c for c in normalized_text if not unicodedata.combining(c)])
+    
+    # Remove caracteres especiais, mantendo letras, números, espaços, hifens e underscores
+    filename = re.sub(r'[^a-zA-Z0-9\s\-_]', '', filename)
+    
+    # Remove espaços extras e substitui por espaço simples
+    filename = " ".join(filename.split())
+    
+    # Limita tamanho para evitar erros de sistema de arquivos
+    filename = filename[:MAX_FILENAME_LENGTH]
+    
+    return filename.strip() or "kwai_video"
+
+@lru_cache(maxsize=CACHE_SIZE)
 def get_kwai_info(url_input: str, download_audio_only: bool = False):
     """
     Extrai metadados do vídeo Kwai usando yt-dlp.

@@ -1,15 +1,20 @@
 import os
 import uuid
-import subprocess
+import logging
+import yt_dlp
+import httpx
 from fastapi import FastAPI, Request, Form, BackgroundTasks, HTTPException
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from scraper import get_kwai_info, extract_url
+from starlette.concurrency import run_in_threadpool
+from scraper import get_kwai_info, sanitize_filename
 from contextlib import asynccontextmanager
-import httpx
 
-# Pooling de conexões global
+# Configurações globais
+CHUNK_SIZE_64K = 65536
+logger = logging.getLogger(__name__)
+
 class AppState:
     client: httpx.AsyncClient = None
 
@@ -17,10 +22,8 @@ state = AppState()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Inicializa cliente global
     state.client = httpx.AsyncClient(timeout=30.0, follow_redirects=True)
     yield
-    # Fecha cliente ao desligar
     await state.client.aclose()
 
 app = FastAPI(title="Kwai Downloader", lifespan=lifespan)
@@ -34,15 +37,13 @@ os.makedirs(TEMP_DIR, exist_ok=True)
 app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets")
 templates = Jinja2Templates(directory="templates")
 
-from starlette.concurrency import run_in_threadpool
-
 def cleanup_file(path: str):
     """Remove arquivo temporário."""
     try:
         if os.path.exists(path):
             os.remove(path)
     except Exception as e:
-        print(f"Erro cleanup: {e}")
+        logger.error(f"Erro cleanup: {e}")
 
 @app.get("/")
 async def home(request: Request):
@@ -50,53 +51,57 @@ async def home(request: Request):
 
 @app.post("/api/info")
 async def info(url: str = Form(...)):
-    # Executa em threadpool p/ não travar o loop assíncrono
-    data = await run_in_threadpool(get_kwai_info, url)
-    if not data["success"]:
-        return JSONResponse(status_code=400, content=data)
-    return data
+    try:
+        data = await run_in_threadpool(get_kwai_info, url)
+        if not data["success"]:
+            return JSONResponse(status_code=400, content={"success": False, "error": "Falha ao obter informações do vídeo."})
+        return data
+    except Exception as e:
+        logger.error(f"Erro /api/info: {e}")
+        return JSONResponse(status_code=500, content={"success": False, "error": "Erro interno no servidor."})
 
 @app.get("/api/download/mp4")
-async def download_mp4(url: str):
+async def download_mp4(url: str, filename: str = None):
     """Proxy para download do MP4 com nome personalizado."""
     try:
         data = await run_in_threadpool(get_kwai_info, url)
         if not data["success"]:
-            raise HTTPException(status_code=400, detail="URL inválida")
+            raise HTTPException(status_code=400, detail="URL inválida ou expirada.")
         
         video_url = data["video_url"]
+        final_filename = sanitize_filename(filename) if filename else data["clean_title"]
         
         async def stream_video():
-            # Usa chunk maior (64KB) p/ performance de I/O de rede
             async with state.client.stream("GET", video_url) as response:
-                async for chunk in response.aiter_bytes(chunk_size=65536):
+                if response.status_code != 200:
+                    logger.error(f"Erro stream Kwai: Status {response.status_code}")
+                    return
+                async for chunk in response.aiter_bytes(chunk_size=CHUNK_SIZE_64K):
                     yield chunk
 
         return StreamingResponse(
             stream_video(),
             media_type="video/mp4",
-            headers={"Content-Disposition": f'attachment; filename="{data["clean_title"]}.mp4"'}
+            headers={"Content-Disposition": f'attachment; filename="{final_filename}.mp4"'}
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Erro download_mp4: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao processar download do vídeo.")
 
 @app.get("/api/download/mp3")
-async def download_mp3(url: str, background_tasks: BackgroundTasks):
+async def download_mp3(url: str, background_tasks: BackgroundTasks, filename: str = None):
     """Gera MP3 via yt-dlp post-processors e envia."""
     file_id = str(uuid.uuid4())
     temp_file_base = os.path.join(TEMP_DIR, file_id)
     mp3_path = f"{temp_file_base}.mp3"
     
     try:
-        # 1. Pegar info
         data = await run_in_threadpool(get_kwai_info, url, True)
         if not data["success"]:
-            raise HTTPException(status_code=400, detail="URL inválida")
+            raise HTTPException(status_code=400, detail="URL inválida ou expirada.")
         
-        filename = f"{data['clean_title']}.mp3"
+        final_filename = sanitize_filename(filename) if filename else data["clean_title"]
 
-        # 2. Download e conversão (em threadpool p/ performance)
-        import yt_dlp
         ydl_opts = {
             'outtmpl': temp_file_base,
             'format': 'bestaudio/best',
@@ -117,20 +122,20 @@ async def download_mp3(url: str, background_tasks: BackgroundTasks):
         await run_in_threadpool(_download)
         
         if not os.path.exists(mp3_path):
-            raise HTTPException(status_code=500, detail="Falha ao gerar MP3")
+            raise HTTPException(status_code=500, detail="Ocorreu um erro na conversão do áudio.")
 
-        # 3. Agendar cleanup
         background_tasks.add_task(cleanup_file, mp3_path)
         
         return FileResponse(
             mp3_path, 
             media_type="audio/mpeg", 
-            filename=filename
+            filename=f"{final_filename}.mp3"
         )
         
     except Exception as e:
+        logger.error(f"Erro download_mp3: {e}")
         cleanup_file(mp3_path)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Erro interno ao converter para MP3.")
 
 if __name__ == "__main__":
     import uvicorn
