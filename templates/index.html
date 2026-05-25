@@ -311,6 +311,13 @@
         const filename = customFilename.value.trim() || lastProcessedTitle;
         downloadBlob('/api/download/mp3', lastProcessedUrl, filename, 'mp3', "Convertendo áudio... aguarde.");
     };
+
+    // Auto-focus no final do campo de nome ao clicar
+    customFilename.addEventListener('focus', function() {
+        const val = this.value;
+        this.value = '';
+        this.value = val;
+    });
 </script>
 
 </body>
